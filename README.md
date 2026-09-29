@@ -204,20 +204,20 @@ This is a personal portfolio project, but it follows a team-grade workflow:
 
 ## Roadmap
 
-| Goal | Scope                                                              | Status      |
-| ---- | ------------------------------------------------------------------ | ----------- |
-| G0   | Foundations: scaffold, quality tooling, CI, Supabase, i18n         | Done        |
-| G1   | Authentication, profiles, landing page, and demo mode              | Planned     |
-| G2   | Desk scene, paper sheets, lighting, sound, and motion              | Planned     |
-| G3   | Routines, daily tasks, morning greeting, and trash bin             | Planned     |
-| G4   | Sticky notes, Pomodoro, command palette, and shutdown ritual       | Planned     |
-| G5   | Calendar, events, and reminders                                    | Planned     |
-| G6   | Progress and statistics                                            | Planned     |
-| G7   | GitHub integration                                                 | Planned     |
-| G8   | Job search board                                                   | Planned     |
-| G9   | AI morning note                                                    | Planned     |
-| G10  | PWA and desktop app                                                | Planned     |
-| G11  | Portfolio polish, Vercel deploy, and `v1.0.0` release              | Planned     |
+| Goal | Scope                                                        | Status  |
+| ---- | ------------------------------------------------------------ | ------- |
+| G0   | Foundations: scaffold, quality tooling, CI, Supabase, i18n   | Done    |
+| G1   | Authentication, profiles, landing page, and demo mode        | Planned |
+| G2   | Desk scene, paper sheets, lighting, sound, and motion        | Planned |
+| G3   | Routines, daily tasks, morning greeting, and trash bin       | Planned |
+| G4   | Sticky notes, Pomodoro, command palette, and shutdown ritual | Planned |
+| G5   | Calendar, events, and reminders                              | Planned |
+| G6   | Progress and statistics                                      | Planned |
+| G7   | GitHub integration                                           | Planned |
+| G8   | Job search board                                             | Planned |
+| G9   | AI morning note                                              | Planned |
+| G10  | PWA and desktop app                                          | Planned |
+| G11  | Portfolio polish, Vercel deploy, and `v1.0.0` release        | Planned |
 
 ## License
 
