@@ -7,3 +7,6 @@ pnpm-lock.yaml
 next-env.d.ts
 CLAUDE.md
 MEMORY.md
+test-results
+playwright-report
+blob-report
