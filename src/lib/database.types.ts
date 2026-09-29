@@ -39,12 +39,72 @@ export type Database = {
   };
   public: {
     Tables: {
-      [_ in never]: never;
+      profiles: {
+        Row: {
+          ai_note_enabled: boolean;
+          avatar_url: string | null;
+          created_at: string;
+          display_name: string;
+          id: string;
+          locale: string;
+          pomodoro_focus_minutes: number;
+          pomodoro_long_break_minutes: number;
+          pomodoro_sessions_before_long_break: number;
+          pomodoro_short_break_minutes: number;
+          reduced_motion: string;
+          sound_enabled: boolean;
+          sound_volume: number;
+          streak_threshold: number;
+          theme_mode: string;
+          timezone: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          ai_note_enabled?: boolean;
+          avatar_url?: string | null;
+          created_at?: string;
+          display_name: string;
+          id: string;
+          locale?: string;
+          pomodoro_focus_minutes?: number;
+          pomodoro_long_break_minutes?: number;
+          pomodoro_sessions_before_long_break?: number;
+          pomodoro_short_break_minutes?: number;
+          reduced_motion?: string;
+          sound_enabled?: boolean;
+          sound_volume?: number;
+          streak_threshold?: number;
+          theme_mode?: string;
+          timezone?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          ai_note_enabled?: boolean;
+          avatar_url?: string | null;
+          created_at?: string;
+          display_name?: string;
+          id?: string;
+          locale?: string;
+          pomodoro_focus_minutes?: number;
+          pomodoro_long_break_minutes?: number;
+          pomodoro_sessions_before_long_break?: number;
+          pomodoro_short_break_minutes?: number;
+          reduced_motion?: string;
+          sound_enabled?: boolean;
+          sound_volume?: number;
+          streak_threshold?: number;
+          theme_mode?: string;
+          timezone?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
+      create_profile: { Args: { new_user: unknown }; Returns: undefined };
       keepalive: { Args: never; Returns: string };
     };
     Enums: {
