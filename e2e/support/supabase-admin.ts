@@ -1,22 +1,54 @@
 import { createClient } from "@supabase/supabase-js";
 
+import type { Database } from "../../src/lib/database.types";
+
 /**
  * Test users live in the shared Supabase project, so every one of them uses
  * this reserved domain and is deleted by the global setup and teardown.
  */
 const TEST_EMAIL_DOMAIN = "deskmate.test";
 
-function adminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const secretKey = process.env.SUPABASE_SECRET_KEY;
-  if (!url || !secretKey) {
-    throw new Error(
-      "E2E tests need NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY (see .env.example).",
-    );
+function env(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`E2E tests need ${name} (see .env.example).`);
   }
-  return createClient(url, secretKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
+  return value;
+}
+
+const clientOptions = {
+  auth: { persistSession: false, autoRefreshToken: false },
+} as const;
+
+/** Bypasses RLS. Only for arranging and inspecting test data. */
+export function adminClient() {
+  return createClient<Database>(
+    env("NEXT_PUBLIC_SUPABASE_URL"),
+    env("SUPABASE_SECRET_KEY"),
+    clientOptions,
+  );
+}
+
+/** A client with the publishable key and no session, like a visitor. */
+export function anonClient() {
+  return createClient<Database>(
+    env("NEXT_PUBLIC_SUPABASE_URL"),
+    env("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"),
+    clientOptions,
+  );
+}
+
+/** A client signed in as the given user, subject to RLS like the app. */
+export async function signedInClient(email: string, password: string) {
+  const client = anonClient();
+  const { data, error } = await client.auth.signInWithPassword({
+    email,
+    password,
   });
+  if (error) {
+    throw error;
+  }
+  return { client, userId: data.user.id };
 }
 
 function runId(): string {
@@ -33,16 +65,22 @@ export function testEmail(label: string): string {
   return `e2e-${runId()}-${label}-${suffix}@${TEST_EMAIL_DOMAIN}`;
 }
 
-/** Creates a user that can sign in right away. */
-export async function createUser(email: string, password: string) {
-  const { error } = await adminClient().auth.admin.createUser({
+/** Creates a user that can sign in right away and returns its id. */
+export async function createUser(
+  email: string,
+  password: string,
+  metadata: Record<string, string> = {},
+): Promise<string> {
+  const { data, error } = await adminClient().auth.admin.createUser({
     email,
     password,
     email_confirm: true,
+    user_metadata: metadata,
   });
   if (error) {
     throw error;
   }
+  return data.user.id;
 }
 
 /** Deletes the test users that match `shouldDelete`. */
