@@ -67,7 +67,7 @@ It is built for developers first, night owls included. A day can start at 05:00,
 
 ### Everywhere
 
-- **Bilingual UI**: English and Spanish.
+- **Bilingual UI**: English and Spanish. The language comes from the user's choice, then the browser, then English, with no locale prefix in URLs.
 - **Accessible**: keyboard navigation, visible focus, WCAG AA contrast, and a reduced-motion alternative for every animation.
 - **Installable PWA** and a lightweight **desktop app** for Windows (Tauri).
 - **Try the demo**: one click opens a fully seeded desk with months of history, no sign-up needed.
@@ -169,9 +169,11 @@ End-to-end tests start the production server automatically. When a server is alr
 ```text
 .
 ├── e2e/                  # Playwright end-to-end tests
+├── messages/             # UI strings: en.json and es.json (keys must match)
 ├── src/
 │   ├── app/              # Next.js App Router: routes, layouts, and pages
 │   ├── components/       # Reusable UI components
+│   ├── i18n/             # next-intl request config and the locale Server Function
 │   └── lib/
 │       ├── domain/       # Business rules as pure, unit-tested functions
 │       ├── server/       # Server-only code (database access, external APIs)
