@@ -1,12 +1,24 @@
-import { render, screen } from "@testing-library/react";
-import { expect, test } from "vitest";
+import { screen } from "@testing-library/react";
+import { expect, test, vi } from "vitest";
+
+import { renderWithIntl } from "@/i18n/test-utils";
 
 import Home from "./page";
 
+vi.mock("@/i18n/actions", () => ({ setLocale: vi.fn() }));
+
 test("renders the app name as the main heading", () => {
-  render(<Home />);
+  renderWithIntl(<Home />);
 
   expect(
     screen.getByRole("heading", { level: 1, name: "Deskmate" }),
+  ).toBeInTheDocument();
+});
+
+test("renders the tagline in the active locale", () => {
+  renderWithIntl(<Home />, "es");
+
+  expect(
+    screen.getByText("Un escritorio para tu día a día de desarrollo."),
   ).toBeInTheDocument();
 });

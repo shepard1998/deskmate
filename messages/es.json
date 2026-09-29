@@ -1,0 +1,13 @@
+{
+  "Metadata": {
+    "description": "Una app para organizar el día a día de quienes desarrollan software, con la sensación de un escritorio de verdad."
+  },
+  "Home": {
+    "tagline": "Un escritorio para tu día a día de desarrollo."
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  }
+}
