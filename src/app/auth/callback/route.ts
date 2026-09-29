@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { DEFAULT_SIGNED_IN_PATH, safeRedirectPath } from "@/lib/domain/auth";
 import { oauthFailure } from "@/lib/domain/oauth";
+import { applyProfileLocale } from "@/lib/server/profile";
 import { createClient } from "@/lib/server/supabase";
 
 /**
@@ -15,8 +16,9 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      await applyProfileLocale(supabase, data.user.id);
       return NextResponse.redirect(new URL(next, origin));
     }
   }

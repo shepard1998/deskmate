@@ -1,23 +1,29 @@
 "use server";
 
-import { cookies } from "next/headers";
-
 import { isLocale } from "@/lib/domain/locale";
-
-import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "./config";
+import { setLocaleCookie } from "@/lib/server/profile";
+import { createClient } from "@/lib/server/supabase";
 
 /**
- * Stores the locale picked in the language switcher. Setting a cookie in a
- * Server Function re-renders the current page, so the UI switches language.
+ * Stores the locale picked in the language switcher: in the cookie, and in the
+ * profile when signed in. Setting a cookie in a Server Function re-renders the
+ * current page, so the UI switches language.
  */
 export async function setLocale(locale: unknown): Promise<void> {
   if (!isLocale(locale)) {
     throw new Error("Unsupported locale.");
   }
-  const cookieStore = await cookies();
-  cookieStore.set(LOCALE_COOKIE, locale, {
-    path: "/",
-    maxAge: LOCALE_COOKIE_MAX_AGE,
-    sameSite: "lax",
-  });
+  await setLocaleCookie(locale);
+
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  if (data?.claims) {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ locale })
+      .eq("id", data.claims.sub);
+    if (error) {
+      throw error;
+    }
+  }
 }

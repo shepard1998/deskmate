@@ -53,5 +53,64 @@
     "signedInAs": "Sesión iniciada como {email}",
     "comingSoon": "El escritorio está en construcción. Pronto verás aquí tus hojas de papel.",
     "signOut": "Cerrar sesión"
+  },
+  "Settings": {
+    "title": "Ajustes",
+    "openSettings": "Ajustes",
+    "backToDesk": "Volver a tu escritorio",
+    "sections": {
+      "profile": "Perfil",
+      "languageAndTime": "Idioma y hora",
+      "appearance": "Apariencia",
+      "sound": "Sonido",
+      "motion": "Movimiento",
+      "progress": "Progreso",
+      "pomodoro": "Pomodoro",
+      "morningNote": "Nota de la mañana"
+    },
+    "comingSoon": "Se guarda ya; tendrá efecto cuando esta parte del escritorio esté lista.",
+    "displayName": "Nombre visible",
+    "displayNameHint": "Hasta {max} caracteres.",
+    "avatarHint": "Si entras con GitHub se muestra tu foto de GitHub; si no, tus iniciales.",
+    "language": "Idioma",
+    "timezone": "Zona horaria",
+    "timezonePlaceholder": "Elige una zona horaria",
+    "timezoneHint": "Tus días, rachas y recordatorios siguen esta zona horaria.",
+    "useBrowserTimezone": "Usar la zona horaria de mi navegador",
+    "theme": {
+      "legend": "Tema",
+      "auto": "Automático (según la hora del día)",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "soundEnabled": "Reproducir sonidos",
+    "soundVolume": "Volumen",
+    "reducedMotion": {
+      "legend": "Animaciones",
+      "system": "Seguir el ajuste de mi sistema",
+      "reduce": "Reducir animaciones",
+      "no-preference": "Mostrar todas las animaciones"
+    },
+    "streakThreshold": "Umbral de racha",
+    "streakThresholdHint": "Un día suma a tu racha cuando completas al menos esta parte de sus tareas.",
+    "pomodoroFocusMinutes": "Foco (minutos)",
+    "pomodoroShortBreakMinutes": "Descanso corto (minutos)",
+    "pomodoroLongBreakMinutes": "Descanso largo (minutos)",
+    "pomodoroSessionsBeforeLongBreak": "Sesiones de foco antes de un descanso largo",
+    "aiNoteEnabled": "Escribir mi nota de la mañana con IA",
+    "aiNoteHint": "Si lo desactivas, recibirás un saludo sencillo.",
+    "save": "Guardar ajustes",
+    "saving": "Guardando…",
+    "status": {
+      "saved": "Ajustes guardados.",
+      "invalid": "Algunos ajustes necesitan atención.",
+      "failed": "No se pudieron guardar los ajustes. Vuelve a intentarlo."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "tooLong": "Es demasiado largo.",
+      "invalid": "Elige una de las opciones.",
+      "outOfRange": "Escribe un número entero del {min} al {max}."
+    }
   }
 }
