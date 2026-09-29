@@ -13,6 +13,7 @@ import {
 } from "@/lib/domain/auth";
 import { oauthCallbackUrl, oauthFailure } from "@/lib/domain/oauth";
 
+import { applyProfileLocale } from "./profile";
 import { createClient } from "./supabase";
 
 function readForm(formData: FormData) {
@@ -50,7 +51,7 @@ async function authenticate(
       : await supabase.auth.signUp({
           email: credentials.email,
           password: credentials.password,
-          // Kept for localized communication once emails exist (see backlog).
+          // The profile trigger reads it to set the profile language.
           options: { data: { locale: await getLocale() } },
         });
 
@@ -64,6 +65,9 @@ async function authenticate(
     };
   }
 
+  if (mode === "signIn") {
+    await applyProfileLocale(supabase, data.session.user.id);
+  }
   redirect(safeRedirectPath(form.next));
 }
 
