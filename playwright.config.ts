@@ -9,7 +9,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
-  reporter: isCI ? "github" : "list",
+  // In CI, annotate failures on GitHub and keep an HTML report to upload as an artifact.
+  reporter: isCI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL,
     trace: "on-first-retry",
@@ -23,7 +24,8 @@ export default defineConfig({
   ],
   webServer: {
     // Test the production build, the same artifact that gets deployed.
-    command: "pnpm build && pnpm start",
+    // CI builds in an earlier step, so it only needs to start the server.
+    command: isCI ? "pnpm start" : "pnpm build && pnpm start",
     url: baseURL,
     reuseExistingServer: !isCI,
     timeout: 180_000,
