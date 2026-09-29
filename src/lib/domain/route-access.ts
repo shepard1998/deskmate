@@ -1,7 +1,7 @@
 import { DEFAULT_SIGNED_IN_PATH } from "./auth";
 
 /** Pages that require a session. Subpaths are protected too. */
-const PROTECTED_PATHS = ["/desk"];
+const PROTECTED_PATHS = ["/desk", "/settings"];
 
 /** Pages that only make sense without a session. */
 const SIGNED_OUT_ONLY_PATHS = ["/sign-in", "/sign-up"];

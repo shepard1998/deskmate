@@ -14,6 +14,13 @@ describe("redirectForRoute", () => {
     expect(redirectForRoute("/desk", "", true)).toBeNull();
   });
 
+  test("protects the settings page", () => {
+    expect(redirectForRoute("/settings", "", false)).toBe(
+      "/sign-in?next=%2Fsettings",
+    );
+    expect(redirectForRoute("/settings", "", true)).toBeNull();
+  });
+
   test("sends signed-in users away from the auth pages", () => {
     expect(redirectForRoute("/sign-in", "", true)).toBe("/desk");
     expect(redirectForRoute("/sign-up", "", true)).toBe("/desk");

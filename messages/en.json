@@ -53,5 +53,64 @@
     "signedInAs": "Signed in as {email}",
     "comingSoon": "The desk is being built. Your paper sheets will appear here soon.",
     "signOut": "Sign out"
+  },
+  "Settings": {
+    "title": "Settings",
+    "openSettings": "Settings",
+    "backToDesk": "Back to your desk",
+    "sections": {
+      "profile": "Profile",
+      "languageAndTime": "Language and time",
+      "appearance": "Appearance",
+      "sound": "Sound",
+      "motion": "Motion",
+      "progress": "Progress",
+      "pomodoro": "Pomodoro",
+      "morningNote": "Morning note"
+    },
+    "comingSoon": "Saved now; it takes effect when this part of the desk is ready.",
+    "displayName": "Display name",
+    "displayNameHint": "Up to {max} characters.",
+    "avatarHint": "Your GitHub photo is shown when you sign in with GitHub; otherwise, your initials.",
+    "language": "Language",
+    "timezone": "Time zone",
+    "timezonePlaceholder": "Choose a time zone",
+    "timezoneHint": "Your days, streaks, and reminders follow this time zone.",
+    "useBrowserTimezone": "Use my browser's time zone",
+    "theme": {
+      "legend": "Theme",
+      "auto": "Automatic (follows the time of day)",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "soundEnabled": "Play sounds",
+    "soundVolume": "Volume",
+    "reducedMotion": {
+      "legend": "Animations",
+      "system": "Follow my system setting",
+      "reduce": "Reduce animations",
+      "no-preference": "Show all animations"
+    },
+    "streakThreshold": "Streak threshold",
+    "streakThresholdHint": "A day counts toward your streak when you complete at least this share of its tasks.",
+    "pomodoroFocusMinutes": "Focus (minutes)",
+    "pomodoroShortBreakMinutes": "Short break (minutes)",
+    "pomodoroLongBreakMinutes": "Long break (minutes)",
+    "pomodoroSessionsBeforeLongBreak": "Focus sessions before a long break",
+    "aiNoteEnabled": "Write my morning note with AI",
+    "aiNoteHint": "When this is off, you get a simple greeting instead.",
+    "save": "Save settings",
+    "saving": "Saving…",
+    "status": {
+      "saved": "Settings saved.",
+      "invalid": "Some settings need attention.",
+      "failed": "The settings could not be saved. Please try again."
+    },
+    "errors": {
+      "required": "This field is required.",
+      "tooLong": "This is too long.",
+      "invalid": "Choose one of the options.",
+      "outOfRange": "Enter a whole number from {min} to {max}."
+    }
   }
 }
