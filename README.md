@@ -115,7 +115,7 @@ pnpm exec supabase link --project-ref <your-project-ref>
 pnpm db:push
 ```
 
-Copy `.env.example` to `.env.local` and fill in the project URL and publishable key, then start the app:
+Copy `.env.example` to `.env.local` and fill in the project URL, the publishable key, and (for the end-to-end tests) the secret key, then start the app:
 
 ```bash
 pnpm dev
@@ -161,6 +161,8 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e && pnpm build
 | Unit       | Vitest                         | `src/**/*.test.ts`  | Business rules as pure functions in `src/lib/domain` |
 | Component  | Vitest, Testing Library, jsdom | `src/**/*.test.tsx` | Rendering and interaction of React components        |
 | End-to-end | Playwright (Chrome)            | `e2e/*.spec.ts`     | Real user flows against the production build         |
+
+End-to-end tests run against the Supabase project. Every user they create has an `@deskmate.test` email and is deleted when the run ends; leftovers from interrupted runs are removed an hour later by the next run.
 
 End-to-end tests start the production server automatically. When a server is already running on port 3000 locally, Playwright reuses it, so stop `pnpm dev` first to test the production build.
 

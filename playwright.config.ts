@@ -1,11 +1,22 @@
 import { defineConfig, devices } from "@playwright/test";
 
+// Local runs read the Supabase settings from .env.local (existing variables
+// win); CI provides them as environment variables instead.
+try {
+  process.loadEnvFile(".env.local");
+} catch {
+  // No .env.local, as in CI.
+}
+
 const PORT = 3000;
 const baseURL = `http://localhost:${PORT}`;
 const isCI = Boolean(process.env.CI);
 
 export default defineConfig({
   testDir: "./e2e",
+  // Creates and removes the Supabase users the auth tests sign up with.
+  globalSetup: "./e2e/support/global-setup.ts",
+  globalTeardown: "./e2e/support/global-teardown.ts",
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
