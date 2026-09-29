@@ -97,8 +97,7 @@ Parts of the stack are added as the matching roadmap goal is built. The foundati
 - [Node.js](https://nodejs.org/) 24 or later (see `.nvmrc`)
 - [pnpm](https://pnpm.io/) 10 (the exact version is pinned in `package.json` and can be enabled with `corepack enable`)
 - [Google Chrome](https://www.google.com/chrome/), used by the end-to-end tests
-
-Docker and the Supabase CLI will be required once the database is set up.
+- A [Supabase](https://supabase.com/) project (the free plan is enough). The Supabase CLI is installed by `pnpm install`.
 
 ### Install and run
 
@@ -106,10 +105,27 @@ Docker and the Supabase CLI will be required once the database is set up.
 git clone https://github.com/shepard1998/deskmate.git
 cd deskmate
 pnpm install
+```
+
+Connect the repository to your Supabase project and apply the migrations:
+
+```bash
+pnpm exec supabase login
+pnpm exec supabase link --project-ref <your-project-ref>
+pnpm db:push
+```
+
+Copy `.env.example` to `.env.local` and fill in the project URL and publishable key, then start the app:
+
+```bash
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+### Keeping the free-tier database awake
+
+Free Supabase projects pause after 7 days without activity. The [keep-alive workflow](.github/workflows/keepalive.yml) calls a tiny database function every 3 days. It needs two repository secrets, `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. GitHub disables scheduled workflows after 60 days without repository activity; re-enable it from the Actions tab if that happens.
 
 ## Scripts
 
@@ -125,6 +141,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm test`         | Runs unit and component tests once                        |
 | `pnpm test:watch`   | Runs unit and component tests in watch mode               |
 | `pnpm test:e2e`     | Builds the app and runs end-to-end tests in Chrome        |
+| `pnpm db:push`      | Applies pending migrations to the linked Supabase project |
+| `pnpm db:types`     | Generates TypeScript types from the linked project schema |
 
 ### Quality gate
 
@@ -156,7 +174,10 @@ End-to-end tests start the production server automatically. When a server is alr
 │   ├── components/       # Reusable UI components
 │   └── lib/
 │       ├── domain/       # Business rules as pure, unit-tested functions
-│       └── server/       # Server-only code (database access, external APIs)
+│       ├── server/       # Server-only code (database access, external APIs)
+│       ├── supabase/     # Browser Supabase client
+│       ├── database.types.ts  # Generated database types (pnpm db:types)
+│       └── env.ts        # Validated environment variables
 ├── supabase/             # Supabase config, migrations, and seed data
 ├── playwright.config.ts
 └── vitest.config.mts
