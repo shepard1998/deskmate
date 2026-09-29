@@ -4,13 +4,14 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import { renderWithIntl } from "@/i18n/test-utils";
 import type { AuthFormState } from "@/lib/auth-form-state";
-import { signIn, signUp } from "@/lib/server/auth-actions";
+import { signIn, signInWithGitHub, signUp } from "@/lib/server/auth-actions";
 
 import { AuthForm } from "./auth-form";
 
 vi.mock("@/lib/server/auth-actions", () => ({
   signIn: vi.fn(),
   signUp: vi.fn(),
+  signInWithGitHub: vi.fn(),
 }));
 
 function respondWith(action: typeof signIn, state: AuthFormState) {
@@ -20,6 +21,7 @@ function respondWith(action: typeof signIn, state: AuthFormState) {
 beforeEach(() => {
   vi.mocked(signIn).mockReset();
   vi.mocked(signUp).mockReset();
+  vi.mocked(signInWithGitHub).mockReset();
 });
 
 describe("sign-in form", () => {
@@ -153,5 +155,73 @@ describe("sign-up form", () => {
       "An account with this email already exists.",
     );
     expect(signIn).not.toHaveBeenCalled();
+  });
+});
+
+describe("GitHub sign-in", () => {
+  test("offers GitHub before the email form", () => {
+    renderWithIntl(<AuthForm mode="signIn" />);
+
+    const github = screen.getByRole("button", {
+      name: "Continue with GitHub",
+    });
+    const emailSubmit = screen.getByRole("button", { name: "Sign in" });
+    expect(
+      github.compareDocumentPosition(emailSubmit) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(screen.getByText("or")).toBeInTheDocument();
+  });
+
+  test("starts the GitHub flow with the return path", async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<AuthForm mode="signUp" next="/desk?tab=today" />);
+
+    await user.click(
+      screen.getByRole("button", { name: "Continue with GitHub" }),
+    );
+
+    const formData = vi.mocked(signInWithGitHub).mock.calls[0]?.[0];
+    expect(formData?.get("next")).toBe("/desk?tab=today");
+    expect(signUp).not.toHaveBeenCalled();
+  });
+
+  test("shows why GitHub sent the user back", () => {
+    renderWithIntl(<AuthForm mode="signIn" oauthError="githubCancelled" />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "GitHub sign-in was cancelled.",
+    );
+  });
+
+  test("is translated into Spanish", () => {
+    renderWithIntl(<AuthForm mode="signIn" oauthError="githubFailed" />, "es");
+
+    expect(
+      screen.getByRole("button", { name: "Continuar con GitHub" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "No pudimos iniciar tu sesión con GitHub. Vuelve a intentarlo.",
+    );
+  });
+
+  test("replaces the GitHub error with the result of an email sign-in", async () => {
+    const user = userEvent.setup();
+    respondWith(signIn, {
+      email: "ada@example.com",
+      fieldErrors: {},
+      formError: "invalidCredentials",
+    });
+    renderWithIntl(<AuthForm mode="signIn" oauthError="githubFailed" />);
+
+    await user.type(screen.getByLabelText("Email"), "ada@example.com");
+    await user.type(screen.getByLabelText("Password"), "wrong-pass");
+    await user.click(screen.getByRole("button", { name: "Sign in" }));
+
+    await vi.waitFor(() =>
+      expect(screen.getByRole("alert")).toHaveTextContent(
+        "The email or password is incorrect.",
+      ),
+    );
   });
 });

@@ -6,7 +6,10 @@ import { useActionState, useEffect, useId, useRef } from "react";
 
 import { initialAuthFormState } from "@/lib/auth-form-state";
 import { PASSWORD_MIN_LENGTH, type AuthMode } from "@/lib/domain/auth";
+import type { OAuthErrorKey } from "@/lib/domain/oauth";
 import { signIn, signUp } from "@/lib/server/auth-actions";
+
+import { GitHubSignIn } from "./github-sign-in";
 
 const actions = { signIn, signUp };
 
@@ -22,9 +25,11 @@ type AuthFormProps = {
   mode: AuthMode;
   /** Internal path to return to after authenticating. */
   next?: string;
+  /** Error from a GitHub sign-in that sent the user back to this page. */
+  oauthError?: OAuthErrorKey | null;
 };
 
-export function AuthForm({ mode, next }: AuthFormProps) {
+export function AuthForm({ mode, next, oauthError = null }: AuthFormProps) {
   const t = useTranslations("Auth");
   const [state, formAction, isPending] = useActionState(
     actions[mode],
@@ -40,7 +45,10 @@ export function AuthForm({ mode, next }: AuthFormProps) {
   };
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const { fieldErrors, formError } = state;
+  const { fieldErrors } = state;
+  // A new submit result replaces the error GitHub sent the user back with.
+  const formError =
+    state === initialAuthFormState ? oauthError : state.formError;
 
   // Moves focus to the first field that needs attention after a submit.
   useEffect(() => {
@@ -64,11 +72,7 @@ export function AuthForm({ mode, next }: AuthFormProps) {
     : otherPage[mode];
 
   return (
-    <form
-      action={formAction}
-      noValidate
-      className="flex w-full max-w-sm flex-col gap-4"
-    >
+    <div className="flex w-full max-w-sm flex-col gap-4">
       <h1 className="text-3xl font-semibold tracking-tight">
         {t(`${mode}.title`)}
       </h1>
@@ -83,69 +87,79 @@ export function AuthForm({ mode, next }: AuthFormProps) {
         </p>
       ) : null}
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor={ids.email} className="font-medium">
-          {t("email")}
-        </label>
-        <input
-          ref={emailRef}
-          id={ids.email}
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          defaultValue={state.email}
-          aria-invalid={fieldErrors.email ? true : undefined}
-          aria-describedby={fieldErrors.email ? ids.emailError : undefined}
-          className={inputClass}
-        />
-        {fieldErrors.email ? (
-          <p id={ids.emailError} className="text-sm text-red-800">
-            {t(`errors.${fieldErrors.email}`)}
-          </p>
-        ) : null}
-      </div>
+      <GitHubSignIn next={next} />
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor={ids.password} className="font-medium">
-          {t("password")}
-        </label>
-        <input
-          ref={passwordRef}
-          id={ids.password}
-          name="password"
-          type="password"
-          autoComplete={mode === "signUp" ? "new-password" : "current-password"}
-          required
-          aria-invalid={fieldErrors.password ? true : undefined}
-          aria-describedby={passwordDescription || undefined}
-          className={inputClass}
-        />
-        {mode === "signUp" ? (
-          <p id={ids.passwordHint} className="text-sm text-neutral-700">
-            {t("passwordHint", { min: PASSWORD_MIN_LENGTH })}
-          </p>
-        ) : null}
-        {fieldErrors.password ? (
-          <p id={ids.passwordError} className="text-sm text-red-800">
-            {t(`errors.${fieldErrors.password}`)}
-          </p>
-        ) : null}
-      </div>
+      <p className="flex items-center gap-3 text-sm text-neutral-700 before:h-px before:flex-1 before:bg-neutral-300 after:h-px after:flex-1 after:bg-neutral-300">
+        {t("or")}
+      </p>
 
-      {next ? <input type="hidden" name="next" value={next} /> : null}
+      <form action={formAction} noValidate className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <label htmlFor={ids.email} className="font-medium">
+            {t("email")}
+          </label>
+          <input
+            ref={emailRef}
+            id={ids.email}
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            defaultValue={state.email}
+            aria-invalid={fieldErrors.email ? true : undefined}
+            aria-describedby={fieldErrors.email ? ids.emailError : undefined}
+            className={inputClass}
+          />
+          {fieldErrors.email ? (
+            <p id={ids.emailError} className="text-sm text-red-800">
+              {t(`errors.${fieldErrors.email}`)}
+            </p>
+          ) : null}
+        </div>
 
-      <button
-        type="submit"
-        aria-disabled={isPending}
-        onClick={(event) => {
-          // Ignore repeated submits without removing the button from focus.
-          if (isPending) event.preventDefault();
-        }}
-        className="rounded-md bg-neutral-900 px-4 py-2 font-medium text-white hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 aria-disabled:opacity-70"
-      >
-        {isPending ? t(`${mode}.submitting`) : t(`${mode}.submit`)}
-      </button>
+        <div className="flex flex-col gap-1">
+          <label htmlFor={ids.password} className="font-medium">
+            {t("password")}
+          </label>
+          <input
+            ref={passwordRef}
+            id={ids.password}
+            name="password"
+            type="password"
+            autoComplete={
+              mode === "signUp" ? "new-password" : "current-password"
+            }
+            required
+            aria-invalid={fieldErrors.password ? true : undefined}
+            aria-describedby={passwordDescription || undefined}
+            className={inputClass}
+          />
+          {mode === "signUp" ? (
+            <p id={ids.passwordHint} className="text-sm text-neutral-700">
+              {t("passwordHint", { min: PASSWORD_MIN_LENGTH })}
+            </p>
+          ) : null}
+          {fieldErrors.password ? (
+            <p id={ids.passwordError} className="text-sm text-red-800">
+              {t(`errors.${fieldErrors.password}`)}
+            </p>
+          ) : null}
+        </div>
+
+        {next ? <input type="hidden" name="next" value={next} /> : null}
+
+        <button
+          type="submit"
+          aria-disabled={isPending}
+          onClick={(event) => {
+            // Ignore repeated submits without removing the button from focus.
+            if (isPending) event.preventDefault();
+          }}
+          className="rounded-md bg-neutral-900 px-4 py-2 font-medium text-white hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 aria-disabled:opacity-70"
+        >
+          {isPending ? t(`${mode}.submitting`) : t(`${mode}.submit`)}
+        </button>
+      </form>
 
       <p className="text-sm text-neutral-700">
         {t(`${mode}.switchPrompt`)}{" "}
@@ -156,6 +170,6 @@ export function AuthForm({ mode, next }: AuthFormProps) {
           {t(`${mode}.switchLink`)}
         </Link>
       </p>
-    </form>
+    </div>
   );
 }

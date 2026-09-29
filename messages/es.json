@@ -16,6 +16,9 @@
     "email": "Email",
     "password": "Contraseña",
     "passwordHint": "Al menos {min} caracteres.",
+    "continueWithGitHub": "Continuar con GitHub",
+    "redirectingToGitHub": "Redirigiendo a GitHub…",
+    "or": "o",
     "signIn": {
       "title": "Iniciar sesión",
       "submit": "Iniciar sesión",
@@ -40,7 +43,9 @@
       "emailTaken": "Ya existe una cuenta con este email.",
       "weakPassword": "Elige una contraseña más segura.",
       "rateLimited": "Demasiados intentos. Espera un momento y vuelve a intentarlo.",
-      "unexpected": "Algo salió mal. Vuelve a intentarlo."
+      "unexpected": "Algo salió mal. Vuelve a intentarlo.",
+      "githubCancelled": "Se canceló el inicio de sesión con GitHub.",
+      "githubFailed": "No pudimos iniciar tu sesión con GitHub. Vuelve a intentarlo."
     }
   },
   "Desk": {
