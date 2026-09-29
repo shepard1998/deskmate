@@ -120,7 +120,7 @@ test("the profile language applies when signing in on a new browser", async ({
   await signIn(page, email);
 
   await expect(
-    page.getByRole("heading", { level: 1, name: "Tu escritorio" }),
+    page.getByRole("tablist", { name: "Partes del día" }),
   ).toBeVisible();
 });
 
@@ -131,7 +131,7 @@ test("the language switcher also updates the profile", async ({ page }) => {
 
   await page.getByRole("combobox", { name: "Language" }).selectOption("es");
   await expect(
-    page.getByRole("heading", { level: 1, name: "Tu escritorio" }),
+    page.getByRole("tablist", { name: "Partes del día" }),
   ).toBeVisible();
 
   const { data } = await adminClient()

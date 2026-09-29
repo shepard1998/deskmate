@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
+import { expectSignedInAs, signOutFromDesk } from "./support/desk";
 import { createUser, testEmail } from "./support/supabase-admin";
 
 test.use({ locale: "en-US" });
@@ -37,15 +38,15 @@ test("a visitor signs up, lands on the desk, and signs out", async ({
   await page.getByRole("button", { name: "Create account" }).click();
 
   await expect(page).toHaveURL("/desk");
-  await expect(page.getByText(`Signed in as ${email}`)).toBeVisible();
+  await expectSignedInAs(page, email);
 
   // The session survives a reload, and the auth pages send users back.
   await page.reload();
-  await expect(page.getByText(`Signed in as ${email}`)).toBeVisible();
+  await expectSignedInAs(page, email);
   await page.goto("/sign-in");
   await expect(page).toHaveURL("/desk");
 
-  await page.getByRole("button", { name: "Sign out" }).click();
+  await signOutFromDesk(page);
   await expect(page).toHaveURL("/");
   await page.goto("/desk");
   await expect(page).toHaveURL("/sign-in?next=%2Fdesk");
@@ -63,7 +64,7 @@ test("an existing user signs in and returns to the page they asked for", async (
   await page.getByRole("button", { name: "Sign in" }).click();
 
   await expect(page).toHaveURL("/desk");
-  await expect(page.getByText(`Signed in as ${email}`)).toBeVisible();
+  await expectSignedInAs(page, email);
 });
 
 test("a wrong password shows an error and keeps the email", async ({
