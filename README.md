@@ -170,6 +170,7 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e && pnpm build
 | Unit       | Vitest                         | `src/**/*.test.ts`  | Business rules as pure functions in `src/lib/domain` |
 | Component  | Vitest, Testing Library, jsdom | `src/**/*.test.tsx` | Rendering and interaction of React components        |
 | End-to-end | Playwright (Chrome)            | `e2e/*.spec.ts`     | Real user flows against the production build         |
+| Security   | Playwright (API only)          | `e2e/rls/*.spec.ts` | Row Level Security and column privileges per table   |
 
 End-to-end tests run against the Supabase project. Every user they create has an `@deskmate.test` email and is deleted when the run ends; leftovers from interrupted runs are removed an hour later by the next run.
 
