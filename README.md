@@ -1,5 +1,8 @@
 # Deskmate
 
+[![CI](https://github.com/shepard1998/deskmate/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/shepard1998/deskmate/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **Your day, on paper. Your tools, on the keyboard.**
 
 Deskmate is a daily-life management app for developers that looks and feels like a physical desk: paper sheets, handwritten notes, pencil sounds, and a lamp that switches between day and night. Underneath the analog surface sit the tools developers expect: keyboard shortcuts, a command palette, and GitHub integration.
@@ -130,6 +133,8 @@ Every change must pass the full gate before it is merged:
 ```bash
 pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e && pnpm build
 ```
+
+[GitHub Actions](.github/workflows/ci.yml) runs the same gate, plus a formatting check, on a clean Linux machine for every push and pull request to `develop` and `main`.
 
 ## Testing
 
