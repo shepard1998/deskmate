@@ -5,9 +5,9 @@
 
 **Your day, on paper. Your tools, on the keyboard.**
 
-Deskmate is a daily-life management app for developers that looks and feels like a physical desk: paper sheets, handwritten notes, pencil sounds, and a lamp that switches between day and night. Underneath the analog surface sit the tools developers expect: keyboard shortcuts, a command palette, and GitHub integration.
+Deskmate is a daily-life management app for developers that looks and feels like a physical desk: paper sheets, handwritten notes, sticky notes, and a pencil, with light that follows your time of day. Underneath the analog surface sit the tools developers expect: keyboard shortcuts, a command palette, and GitHub integration.
 
-> **Status: early development.** The foundations are in place and features are being built in the order of the [roadmap](#roadmap). Everything under [Features](#features) describes the planned product unless it is marked as available.
+> **Status: early development.** Accounts, the profile, and settings work. The interface is now being built screen by screen on sample data, and the backend comes after it (see the [roadmap](#roadmap)). Everything under [Features](#features) describes the planned product unless it is marked as available.
 
 ---
 
@@ -31,7 +31,7 @@ Deskmate is a daily-life management app for developers that looks and feels like
 
 Most productivity apps look like spreadsheets. Deskmate starts from a different question: _what if planning your day felt like sitting down at a tidy desk?_
 
-When your day starts, Deskmate greets you and hands you a paper sheet with your morning routine: have breakfast, make coffee, set up the workstation. As the day moves on, you flip to the sheet for the afternoon, evening, and night. You cross tasks out with a pencil stroke, stick notes on the desk, turn the hourglass for a focus session, and close the day with a short shutdown ritual.
+When your day starts, Deskmate greets you and hands you a paper sheet with your morning routine: have breakfast, make coffee, set up the workstation. As the day moves on, you flip to the sheet for the afternoon, evening, and night. You cross tasks out with a pencil stroke, stick notes on the desk, start a focus session from the top bar, and close the day with a short shutdown ritual.
 
 It is built for developers first, night owls included. A day can start at 05:00, so work at 01:30 still counts as "yesterday".
 
@@ -46,12 +46,13 @@ It is built for developers first, night owls included. A day can start at 05:00,
 
 ### Objects on the desk
 
+- **Your own desk**: choose the wood (walnut, oak, or ebony), the paper, and the handwriting.
 - **Sticky notes** in four colors that you can drag around the desk.
-- **Pomodoro hourglass** that survives page reloads and logs focus time.
-- **Desk lamp** that toggles the light and dark theme, with scene lighting that follows your local time.
-- **Trash bin** with soft delete, restore, and automatic purge after 30 days.
 - **Desk calendar** with meetings, appointments, and reminders.
 - **Cork board** with a kanban job search tracker, follow-up dates, and an activity log.
+- **Scene lighting** that follows your local time, with a light and dark theme toggle.
+- **Pomodoro timer** in the top bar that survives page reloads and logs focus time.
+- **Crumple to delete**, with an Undo toast.
 
 ### Progress
 
@@ -216,20 +217,14 @@ This is a personal portfolio project, but it follows a team-grade workflow:
 
 ## Roadmap
 
-| Goal | Scope                                                        | Status  |
-| ---- | ------------------------------------------------------------ | ------- |
-| G0   | Foundations: scaffold, quality tooling, CI, Supabase, i18n   | Done    |
-| G1   | Authentication, profiles, landing page, and demo mode        | Planned |
-| G2   | Desk scene, paper sheets, lighting, sound, and motion        | Planned |
-| G3   | Routines, daily tasks, morning greeting, and trash bin       | Planned |
-| G4   | Sticky notes, Pomodoro, command palette, and shutdown ritual | Planned |
-| G5   | Calendar, events, and reminders                              | Planned |
-| G6   | Progress and statistics                                      | Planned |
-| G7   | GitHub integration                                           | Planned |
-| G8   | Job search board                                             | Planned |
-| G9   | AI morning note                                              | Planned |
-| G10  | PWA and desktop app                                          | Planned |
-| G11  | Portfolio polish, Vercel deploy, and `v1.0.0` release        | Planned |
+The interface is built first, on sample data kept in the browser, so every screen can be designed and reviewed end to end. The backend then replaces the sample data one area at a time, without changing the interface.
+
+| Phase | Scope                                                                                                                           | Status      |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 0     | Foundations, CI, Supabase, i18n, email and GitHub sign-in, profile and settings                                                 | Done        |
+| 1     | Interface on sample data: desk scene, daily flow, desk tools, calendar, stats, GitHub widgets, job board, AI note, landing, PWA | In progress |
+| 2     | Backend integration: tables with Row Level Security, sync, GitHub, the Claude API, and the demo mode                            | Planned     |
+| 3     | Desktop app (Tauri), documentation, deploy, and the `v1.0.0` release                                                            | Planned     |
 
 ## License
 

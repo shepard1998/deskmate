@@ -14,7 +14,10 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-2 text-sm">
-      <label htmlFor={selectId}>{t("label")}</label>
+      {/* Visually hidden on narrow screens; the select keeps its name. */}
+      <label htmlFor={selectId} className="max-sm:sr-only">
+        {t("label")}
+      </label>
       <select
         id={selectId}
         value={locale}
@@ -24,7 +27,7 @@ export function LanguageSwitcher() {
           const next = event.target.value;
           startTransition(() => setLocale(next));
         }}
-        className="rounded-md border border-neutral-400 bg-white px-2 py-1 text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+        className="min-h-11 rounded-md border border-neutral-400 bg-white px-2 py-1 text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
       >
         {locales.map((option) => (
           <option key={option} value={option} lang={option}>

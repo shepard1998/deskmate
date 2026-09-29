@@ -1,1 +1,160 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens. The desk style (wood, paper, handwriting) is chosen per user
+ * (CLAUDE.md 4.2) and applied through data attributes on the desk root, so
+ * switching it only swaps variables: no re-render of the scene.
+ */
+
+@theme inline {
+  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), Georgia, serif;
+  --font-hand: var(--hand-font);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-pencil: var(--pencil);
+  --color-paper: var(--paper);
+  --color-paper-back: var(--paper-back);
+  --color-on-wood: var(--on-wood);
+  --color-chip: var(--chip-bg);
+  --color-chip-border: var(--chip-border);
+  --color-bar: var(--bar-bg);
+  --color-rule: var(--rule);
+}
+
+:root {
+  --ink: #26303f;
+  --ink-soft: #5a534b;
+  --pencil: #2f5d8a;
+  --rule: rgb(70 110 170 / 0.22);
+  --margin-rule: rgb(200 70 70 / 0.45);
+}
+
+/* Wood */
+[data-wood="walnut"] {
+  --wood-top: #6d4730;
+  --wood-mid: #573621;
+  --wood-bottom: #472a1a;
+  --on-wood: rgb(255 246 232 / 0.94);
+  --bar-bg: rgb(20 12 6 / 0.3);
+  --chip-bg: rgb(255 246 232 / 0.1);
+  --chip-border: rgb(255 246 232 / 0.4);
+}
+[data-wood="oak"] {
+  --wood-top: #d2aa7c;
+  --wood-mid: #bd9062;
+  --wood-bottom: #a97c4f;
+  --on-wood: rgb(40 22 8 / 0.95);
+  --bar-bg: rgb(90 55 25 / 0.16);
+  --chip-bg: rgb(255 250 240 / 0.35);
+  --chip-border: rgb(60 35 15 / 0.4);
+}
+[data-wood="ebony"] {
+  --wood-top: #3d312b;
+  --wood-mid: #2b221e;
+  --wood-bottom: #211a16;
+  --on-wood: rgb(255 246 232 / 0.92);
+  --bar-bg: rgb(0 0 0 / 0.35);
+  --chip-bg: rgb(255 246 232 / 0.08);
+  --chip-border: rgb(255 246 232 / 0.35);
+}
+
+/* Paper */
+[data-paper="ivory"] {
+  --paper: #fbf6ea;
+  --paper-back: #efe7d6;
+}
+[data-paper="white"] {
+  --paper: #fdfdfb;
+  --paper-back: #ecebe6;
+}
+[data-paper="recycled"] {
+  --paper: #eee4cf;
+  --paper-back: #e0d4bb;
+}
+
+/* Handwriting. Each face has its own optical size, so text scales with it. */
+[data-hand="caveat"] {
+  --hand-font: var(--font-caveat), cursive;
+  --hand-scale: 1.2;
+}
+
+/*
+ * The desk surface: wood tone, fine grain, and a vignette in one painted
+ * layer (no images, no blend modes, so it stays cheap to composite).
+ */
+.desk-surface {
+  background:
+    radial-gradient(
+      120% 100% at 50% 45%,
+      rgb(0 0 0 / 0) 55%,
+      rgb(0 0 0 / 0.35) 100%
+    ),
+    repeating-linear-gradient(
+      91deg,
+      rgb(0 0 0 / 0.07) 0 1px,
+      rgb(0 0 0 / 0) 1px 8px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      rgb(255 255 255 / 0.035) 0 2px,
+      rgb(255 255 255 / 0) 2px 31px
+    ),
+    linear-gradient(
+      180deg,
+      var(--wood-top) 0%,
+      var(--wood-mid) 55%,
+      var(--wood-bottom) 100%
+    );
+}
+
+/* A paper sheet with a red margin line. The rules are drawn per row. */
+.paper-sheet {
+  background-color: var(--paper);
+  background-image: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0) 0 var(--margin),
+    var(--margin-rule) var(--margin) calc(var(--margin) + 2px),
+    rgb(0 0 0 / 0) calc(var(--margin) + 2px)
+  );
+}
+
+/* Empty ruled lines below the last row, 36px apart like the rows. */
+.ruled-fill {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0) 0 35px,
+    var(--rule) 35px 36px
+  );
+}
+
+.cork {
+  background-color: #c8955f;
+  background-image:
+    radial-gradient(rgb(90 55 20 / 0.35) 1px, rgb(0 0 0 / 0) 1.5px),
+    radial-gradient(rgb(255 235 200 / 0.25) 1px, rgb(0 0 0 / 0) 1.5px);
+  background-size:
+    9px 9px,
+    13px 13px;
+  background-position:
+    0 0,
+    4px 6px;
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.animate-sheet-in {
+  animation: sheet-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sheet-in {
+    animation: none;
+  }
+}
