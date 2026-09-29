@@ -20,6 +20,7 @@ Deskmate is a daily-life management app for developers that looks and feels like
 - [Engineering principles](#engineering-principles)
 - [Contributing workflow](#contributing-workflow)
 - [Roadmap](#roadmap)
+- [License](#license)
 
 ---
 
@@ -189,6 +190,10 @@ This is a personal portfolio project, but it follows a team-grade workflow:
 | G9   | AI morning note                                                    | Planned     |
 | G10  | PWA and desktop app                                                | Planned     |
 | G11  | Portfolio polish and `v1.0.0` release                              | Planned     |
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ---
 
