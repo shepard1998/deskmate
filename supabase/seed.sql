@@ -1,0 +1,3 @@
+-- Seed data for a local Supabase stack (`supabase db reset`). It is not applied
+-- to the cloud project by `pnpm db:push`. The demo dataset (CLAUDE.md 4.14) is
+-- created per demo session in G1.6.
