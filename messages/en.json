@@ -1,0 +1,13 @@
+{
+  "Metadata": {
+    "description": "A daily-life management app for developers that feels like a physical desk."
+  },
+  "Home": {
+    "tagline": "A desk for your developer day."
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "es": "Español"
+  }
+}
