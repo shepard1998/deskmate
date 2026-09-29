@@ -3,11 +3,50 @@
     "description": "A daily-life management app for developers that feels like a physical desk."
   },
   "Home": {
-    "tagline": "A desk for your developer day."
+    "tagline": "A desk for your developer day.",
+    "signIn": "Sign in",
+    "signUp": "Create account"
   },
   "LanguageSwitcher": {
     "label": "Language",
     "en": "English",
     "es": "Español"
+  },
+  "Auth": {
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least {min} characters.",
+    "signIn": {
+      "title": "Sign in",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "switchPrompt": "New to Deskmate?",
+      "switchLink": "Create an account"
+    },
+    "signUp": {
+      "title": "Create your account",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "switchPrompt": "Already have an account?",
+      "switchLink": "Sign in"
+    },
+    "errors": {
+      "emailRequired": "Enter your email.",
+      "emailInvalid": "Enter a valid email, like name@example.com.",
+      "passwordRequired": "Enter your password.",
+      "passwordTooShort": "The password is too short.",
+      "passwordTooLong": "The password is too long.",
+      "invalidCredentials": "The email or password is incorrect.",
+      "emailTaken": "An account with this email already exists.",
+      "weakPassword": "Choose a stronger password.",
+      "rateLimited": "Too many attempts. Wait a moment and try again.",
+      "unexpected": "Something went wrong. Please try again."
+    }
+  },
+  "Desk": {
+    "title": "Your desk",
+    "signedInAs": "Signed in as {email}",
+    "comingSoon": "The desk is being built. Your paper sheets will appear here soon.",
+    "signOut": "Sign out"
   }
 }

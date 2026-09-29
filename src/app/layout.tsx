@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
 
   return {
-    title: "Deskmate",
+    title: { default: "Deskmate", template: "%s · Deskmate" },
     description: t("description"),
   };
 }

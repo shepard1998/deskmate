@@ -3,11 +3,50 @@
     "description": "Una app para organizar el día a día de quienes desarrollan software, con la sensación de un escritorio de verdad."
   },
   "Home": {
-    "tagline": "Un escritorio para tu día a día de desarrollo."
+    "tagline": "Un escritorio para tu día a día de desarrollo.",
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta"
   },
   "LanguageSwitcher": {
     "label": "Idioma",
     "en": "English",
     "es": "Español"
+  },
+  "Auth": {
+    "email": "Email",
+    "password": "Contraseña",
+    "passwordHint": "Al menos {min} caracteres.",
+    "signIn": {
+      "title": "Iniciar sesión",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "switchPrompt": "¿Primera vez en Deskmate?",
+      "switchLink": "Crea una cuenta"
+    },
+    "signUp": {
+      "title": "Crea tu cuenta",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta…",
+      "switchPrompt": "¿Ya tienes una cuenta?",
+      "switchLink": "Inicia sesión"
+    },
+    "errors": {
+      "emailRequired": "Escribe tu email.",
+      "emailInvalid": "Escribe un email válido, como nombre@ejemplo.com.",
+      "passwordRequired": "Escribe tu contraseña.",
+      "passwordTooShort": "La contraseña es demasiado corta.",
+      "passwordTooLong": "La contraseña es demasiado larga.",
+      "invalidCredentials": "El email o la contraseña no son correctos.",
+      "emailTaken": "Ya existe una cuenta con este email.",
+      "weakPassword": "Elige una contraseña más segura.",
+      "rateLimited": "Demasiados intentos. Espera un momento y vuelve a intentarlo.",
+      "unexpected": "Algo salió mal. Vuelve a intentarlo."
+    }
+  },
+  "Desk": {
+    "title": "Tu escritorio",
+    "signedInAs": "Sesión iniciada como {email}",
+    "comingSoon": "El escritorio está en construcción. Pronto verás aquí tus hojas de papel.",
+    "signOut": "Cerrar sesión"
   }
 }
