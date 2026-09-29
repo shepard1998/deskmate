@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
 
@@ -10,6 +11,7 @@ import {
   validateCredentials,
   type AuthMode,
 } from "@/lib/domain/auth";
+import { oauthCallbackUrl, oauthFailure } from "@/lib/domain/oauth";
 
 import { createClient } from "./supabase";
 
@@ -77,6 +79,32 @@ export async function signUp(
   formData: FormData,
 ): Promise<AuthFormState> {
   return authenticate("signUp", formData);
+}
+
+/** Starts the GitHub OAuth flow; GitHub sends the user back to /auth/callback. */
+export async function signInWithGitHub(formData: FormData): Promise<void> {
+  const next = formData.get("next");
+  const headerStore = await headers();
+  // Server Functions only accept same-origin requests, so Origin is this app.
+  const origin =
+    headerStore.get("origin") ??
+    `${headerStore.get("x-forwarded-proto") ?? "http"}://${headerStore.get("host")}`;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: oauthCallbackUrl(
+        origin,
+        typeof next === "string" ? next : null,
+      ),
+    },
+  });
+
+  if (error || !data.url) {
+    redirect(`/sign-in?error=${oauthFailure(null)}`);
+  }
+  redirect(data.url);
 }
 
 export async function signOut(): Promise<void> {

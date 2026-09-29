@@ -115,7 +115,16 @@ pnpm exec supabase link --project-ref <your-project-ref>
 pnpm db:push
 ```
 
-Copy `.env.example` to `.env.local` and fill in the project URL, the publishable key, and (for the end-to-end tests) the secret key, then start the app:
+Copy `.env.example` to `.env.local` and fill in the project URL, the publishable key, and (for the end-to-end tests) the secret key.
+
+Auth settings live in `supabase/config.toml`. To enable GitHub sign-in, create a [GitHub OAuth App](https://github.com/settings/developers) with the callback URL `https://<your-project-ref>.supabase.co/auth/v1/callback`, put its client ID in `[auth.external.github]` and its client secret in `.env.local`, then push the settings (review them first with `supabase config diff`):
+
+```bash
+set -a && . ./.env.local && set +a
+pnpm exec supabase config push
+```
+
+Start the app:
 
 ```bash
 pnpm dev

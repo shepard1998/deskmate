@@ -16,6 +16,9 @@
     "email": "Email",
     "password": "Password",
     "passwordHint": "At least {min} characters.",
+    "continueWithGitHub": "Continue with GitHub",
+    "redirectingToGitHub": "Redirecting to GitHub…",
+    "or": "or",
     "signIn": {
       "title": "Sign in",
       "submit": "Sign in",
@@ -40,7 +43,9 @@
       "emailTaken": "An account with this email already exists.",
       "weakPassword": "Choose a stronger password.",
       "rateLimited": "Too many attempts. Wait a moment and try again.",
-      "unexpected": "Something went wrong. Please try again."
+      "unexpected": "Something went wrong. Please try again.",
+      "githubCancelled": "GitHub sign-in was cancelled.",
+      "githubFailed": "We couldn't sign you in with GitHub. Please try again."
     }
   },
   "Desk": {
