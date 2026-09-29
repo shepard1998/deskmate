@@ -50,9 +50,69 @@
   },
   "Desk": {
     "title": "Your desk",
-    "signedInAs": "Signed in as {email}",
-    "comingSoon": "The desk is being built. Your paper sheets will appear here soon.",
-    "signOut": "Sign out"
+    "skipToSheet": "Skip to your sheet",
+    "dayPartsLabel": "Parts of the day",
+    "greeting": {
+      "morning": "Good morning, {name}",
+      "afternoon": "Good afternoon, {name}",
+      "evening": "Good evening, {name}",
+      "night": "Good night, {name}"
+    },
+    "progress": "{done} of {total} done",
+    "done": "done",
+    "anytime": "Anytime",
+    "objects": {
+      "stickyNotes": "Sticky notes",
+      "calendar": "Desk calendar",
+      "corkBoard": "Job search board",
+      "deskObjects": "Desk objects",
+      "calendarShort": "Calendar",
+      "stickyNotesShort": "Notes",
+      "corkBoardShort": "Jobs"
+    },
+    "account": {
+      "menu": "Account menu",
+      "signedInAs": "Signed in as {email}",
+      "settings": "Settings",
+      "signOut": "Sign out"
+    },
+    "sample": {
+      "morning": [
+        "Have breakfast",
+        "Make coffee",
+        "Set up the workstation",
+        "Review open pull requests",
+        "Standup at 10:00 AM"
+      ],
+      "afternoon": [
+        "Lunch away from the screen",
+        "Code review for Ana",
+        "15-minute walk",
+        "Interview with Acme at 4:30 PM"
+      ],
+      "evening": ["Shutdown ritual", "Plan tomorrow", "Read for 20 minutes"],
+      "night": ["Screens off", "Lay out tomorrow's clothes"],
+      "anytime": ["Call the dentist", "Update my résumé"],
+      "notes": [
+        "Buy coffee beans",
+        "Idea: focus mode with brown noise",
+        "Renew the domain before the 5th"
+      ],
+      "jobs": [
+        {
+          "company": "Acme",
+          "stage": "Interviewing"
+        },
+        {
+          "company": "Globex",
+          "stage": "Follow-up overdue"
+        },
+        {
+          "company": "Initech",
+          "stage": "Offer"
+        }
+      ]
+    }
   },
   "Settings": {
     "title": "Settings",
@@ -112,5 +172,11 @@
       "invalid": "Choose one of the options.",
       "outOfRange": "Enter a whole number from {min} to {max}."
     }
+  },
+  "DayParts": {
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "night": "Night"
   }
 }

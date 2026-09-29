@@ -50,9 +50,69 @@
   },
   "Desk": {
     "title": "Tu escritorio",
-    "signedInAs": "Sesión iniciada como {email}",
-    "comingSoon": "El escritorio está en construcción. Pronto verás aquí tus hojas de papel.",
-    "signOut": "Cerrar sesión"
+    "skipToSheet": "Saltar a tu hoja",
+    "dayPartsLabel": "Partes del día",
+    "greeting": {
+      "morning": "Buenos días, {name}",
+      "afternoon": "Buenas tardes, {name}",
+      "evening": "Buenas noches, {name}",
+      "night": "Buenas noches, {name}"
+    },
+    "progress": "{done} de {total} hechas",
+    "done": "hecha",
+    "anytime": "Cuando sea",
+    "objects": {
+      "stickyNotes": "Notas adhesivas",
+      "calendar": "Calendario de mesa",
+      "corkBoard": "Tablero de empleo",
+      "deskObjects": "Objetos del escritorio",
+      "calendarShort": "Calendario",
+      "stickyNotesShort": "Notas",
+      "corkBoardShort": "Empleo"
+    },
+    "account": {
+      "menu": "Menú de la cuenta",
+      "signedInAs": "Sesión iniciada como {email}",
+      "settings": "Ajustes",
+      "signOut": "Cerrar sesión"
+    },
+    "sample": {
+      "morning": [
+        "Desayunar",
+        "Preparar café",
+        "Preparar el puesto de trabajo",
+        "Revisar PRs pendientes",
+        "Standup a las 10:00"
+      ],
+      "afternoon": [
+        "Almorzar lejos de la pantalla",
+        "Code review de Ana",
+        "Paseo de 15 minutos",
+        "Entrevista con Acme a las 16:30"
+      ],
+      "evening": ["Ritual de cierre", "Planificar mañana", "Leer 20 minutos"],
+      "night": ["Apagar pantallas", "Preparar la ropa de mañana"],
+      "anytime": ["Llamar al dentista", "Actualizar el CV"],
+      "notes": [
+        "Comprar café en grano",
+        "Idea: modo foco con ruido marrón",
+        "Renovar el dominio antes del día 5"
+      ],
+      "jobs": [
+        {
+          "company": "Acme",
+          "stage": "Entrevista"
+        },
+        {
+          "company": "Globex",
+          "stage": "Seguimiento vencido"
+        },
+        {
+          "company": "Initech",
+          "stage": "Oferta"
+        }
+      ]
+    }
   },
   "Settings": {
     "title": "Ajustes",
@@ -112,5 +172,11 @@
       "invalid": "Elige una de las opciones.",
       "outOfRange": "Escribe un número entero del {min} al {max}."
     }
+  },
+  "DayParts": {
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "evening": "Noche",
+    "night": "Madrugada"
   }
 }
